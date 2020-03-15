@@ -22,6 +22,37 @@ let reducer = (state, action) => {
 let value = ev => ReactEvent.Form.target(ev)##value;
 let preventDefault = ev => ReactEvent.Form.preventDefault(ev);
 
+module Styles = {
+  open TW;
+
+  let header = make([Padding(P5)]);
+
+  let searchForm = make([Display(Flex), JustifyContent(JustifyCenter)]);
+
+  let searchInput =
+    make([
+      Padding(Py2),
+      Padding(Px4),
+      Display(Block),
+      AppearanceNone,
+      LineHeight(LeadingNormal),
+      BorderWidth(Border),
+      BorderColor(BorderGray400),
+      BackgroundColor(BgWhite),
+      BackgroundColor(HoverBgGray100),
+    ]);
+
+  let searchBtn =
+    make([
+      Padding(Py2),
+      Padding(Px4),
+      Display(Flex),
+      TextColor(TextWhite),
+      BackgroundColor(BgBlue500),
+      BackgroundColor(HoverBgBlue400),
+    ]);
+};
+
 [@react.component]
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initialState);
@@ -44,16 +75,21 @@ let make = () => {
   };
 
   <div>
-    <form onSubmit>
-      <label htmlFor="search"> {React.string("Search")} </label>
-      <input
-        id="search"
-        name="search"
-        value={state.input}
-        onChange={ev => dispatch(UpdateInput(value(ev)))}
-      />
-      <button type_="submit"> {React.string("Submit Search")} </button>
-    </form>
+    <div className=Styles.header>
+      <form onSubmit className=Styles.searchForm>
+        <input
+          id="search"
+          name="search"
+          value={state.input}
+          placeholder="Search for a repository"
+          className=Styles.searchInput
+          onChange={ev => dispatch(UpdateInput(value(ev)))}
+        />
+        <button type_="submit" className=Styles.searchBtn>
+          <i className="material-icons"> {React.string("search")} </i>
+        </button>
+      </form>
+    </div>
     <div>
       {state.isLoading
          ? React.string("Loading...")

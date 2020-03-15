@@ -21,7 +21,8 @@
     "bs-css",
     "bs-css-emotion",
     "bs-fetch",
-    "@glennsl/bs-json"
+    "@glennsl/bs-json",
+    "re-tailwind"
   ],
   "refmt": 3
 }
