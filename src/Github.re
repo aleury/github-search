@@ -25,6 +25,6 @@ let search = query =>
     Fetch.fetch("https://api.github.com/search/repositories?q=" ++ query)
     |> then_(Fetch.Response.json)
     |> then_(json => decodeResults(json) |> resolve)
-    |> then_(results => results->Belt.List.keepMap(x => x)->Some |> resolve)
+    |> then_(results => results->Belt.List.keepMap(x => x)->Some->resolve)
     |> catch(_err => Js.Promise.resolve(None))
   );
