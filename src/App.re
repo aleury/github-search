@@ -94,10 +94,10 @@ let make = () => {
       {state.isLoading
          ? React.string("Loading...")
          : state.results
-           ->Belt.List.toArray
-           ->Belt.Array.map(({name, url, description}) =>
+           ->Belt.List.map(({name, url, description}) =>
                <Card key=url name href=url description />
              )
+           ->Belt.List.toArray
            ->React.array}
     </div>
   </div>;
