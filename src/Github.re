@@ -6,19 +6,13 @@ type repository = {
   description: string,
 };
 
-let decodeResults =
-  field(
-    "items",
-    list(
-      optional(json =>
-        {
-          name: field("name", string, json),
-          url: field("html_url", string, json),
-          description: field("description", string, json),
-        }
-      ),
-    ),
-  );
+let decodeRepository = json => {
+  name: field("name", string, json),
+  url: field("html_url", string, json),
+  description: field("description", string, json),
+};
+
+let decodeResults = field("items", list(optional(decodeRepository)));
 
 let search = query =>
   Js.Promise.(
